@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>sql调优 | 纽扣</title><meta name="keywords" content="数据库"><meta name="author" content="Button"><meta name="copyright" content="Button"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="SQL 调优笔记 一、概述 SQL 调优是提高数据库性能的关键。通过对 SQL 语句的优化，可以大大提升数据库的响应速度，减少资源消耗，从而提升整体的应用性能。 二、SQL 调优技巧  使用索引 为经常查询的列和 WHERE 子句中的条件列建立索引。 避免全表扫描，尽量使用索引。   **避免使用 SELECT *** 只选择需要的列，避免选择不必要的数据。   使用连接（JOIN）代替子查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql调优">
+<meta property="og:url" content="http://example.com/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="纽扣">
+<meta property="og:description" content="SQL 调优笔记 一、概述 SQL 调优是提高数据库性能的关键。通过对 SQL 语句的优化，可以大大提升数据库的响应速度，减少资源消耗，从而提升整体的应用性能。 二、SQL 调优技巧  使用索引 为经常查询的列和 WHERE 子句中的条件列建立索引。 避免全表扫描，尽量使用索引。   **避免使用 SELECT *** 只选择需要的列，避免选择不必要的数据。   使用连接（JOIN）代替子查询">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/f1jpg.jpg">
+<meta property="article:published_time" content="2023-11-17T09:30:00.000Z">
+<meta property="article:modified_time" content="2023-12-27T02:54:09.149Z">
+<meta property="article:author" content="Button">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/f1jpg.jpg"><link rel="shortcut icon" href="https://gitee.com/Button_mkns/picgo/raw/master/img/profile.jpg)"><link rel="canonical" href="http://example.com/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-27 10:54:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/f1jpg.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">纽扣</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 链接</span><i class="fas fa-chevron-down expand hide"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">sql调优</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-11-17T09:30:00.000Z" title="发表于 2023-11-17 17:30:00">2023-11-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-27T02:54:09.149Z" title="更新于 2023-12-27 10:54:09">2023-12-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/">知识碎片</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="sql调优"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><meta name="referrer" content="no-referrer"/>
+
+<p><strong>SQL 调优笔记</strong></p>
+<p><strong>一、概述</strong></p>
+<p>SQL 调优是提高数据库性能的关键。通过对 SQL 语句的优化，可以大大提升数据库的响应速度，减少资源消耗，从而提升整体的应用性能。</p>
+<p><strong>二、SQL 调优技巧</strong></p>
+<ol>
+<li><strong>使用索引</strong><ul>
+<li>为经常查询的列和 WHERE 子句中的条件列建立索引。</li>
+<li>避免全表扫描，尽量使用索引。</li>
+</ul>
+</li>
+<li>**避免使用 SELECT ***<ul>
+<li>只选择需要的列，避免选择不必要的数据。</li>
+</ul>
+</li>
+<li><strong>使用连接（JOIN）代替子查询</strong><ul>
+<li>当可能的时候，使用连接来代替子查询，以提高效率。</li>
+</ul>
+</li>
+<li><strong>优化存储引擎</strong><ul>
+<li>根据需求选择合适的存储引擎，如 InnoDB 或 MyISAM。</li>
+</ul>
+</li>
+<li><strong>合理设计数据库结构</strong><ul>
+<li>规范化：减少数据冗余。</li>
+<li>反规范化：提高查询性能，但会增加数据冗余。</li>
+</ul>
+</li>
+<li><strong>使用 LIMIT</strong><ul>
+<li>当只需要部分结果时，使用 LIMIT 来限制返回的行数。</li>
+</ul>
+</li>
+<li><strong>避免在列上进行计算</strong><ul>
+<li>这会导致函数在每一行上都执行一次，可能导致全表扫描。</li>
+</ul>
+</li>
+<li><strong>使用合适的数据类型</strong><ul>
+<li>为列选择合适的数据类型可以减少存储需求并提高查询性能。</li>
+</ul>
+</li>
+<li><strong>定期进行数据库维护</strong></li>
+</ol>
+<ul>
+<li>如优化表（<code>OPTIMIZE TABLE</code>），修复表（<code>REPAIR TABLE</code>）等。</li>
+</ul>
+<ol>
+<li><strong>监控和分析慢查询日志</strong></li>
+</ol>
+<ul>
+<li>找出需要优化的慢查询，并对其进行优化。</li>
+</ul>
+<ol>
+<li><strong>考虑查询缓存</strong></li>
+</ol>
+<ul>
+<li>如果数据库支持，开启查询缓存可以提高重复查询的性能。</li>
+</ul>
+<ol>
+<li><strong>使用 EXPLAIN 分析查询计划</strong></li>
+</ol>
+<ul>
+<li>通过 <code>EXPLAIN</code> 可以查看查询的执行计划，从而找出潜在的优化点。</li>
+</ul>
+<ol>
+<li><strong>避免在 WHERE 子句中使用函数或运算</strong></li>
+</ol>
+<ul>
+<li>这会导致函数在每一行上都执行一次，可能导致全表扫描。</li>
+</ul>
+<ol>
+<li><strong>使用预编译语句（Prepared Statements）</strong></li>
+</ol>
+<ul>
+<li>预编译语句可以减少解析和优化时间，提高性能。</li>
+</ul>
+<ol>
+<li><strong>优化存储引擎和表结构</strong></li>
+</ol>
+<ul>
+<li>根据应用需求和数据特点选择合适的存储引擎和表结构。例如，InnoDB 支持事务和行级锁定，而 MyISAM 则更适合于只读操作。</li>
+</ul>
+<ol>
+<li><strong>避免使用非标准的 SQL 功能</strong></li>
+</ol>
+<ul>
+<li>使用标准 SQL 可以确保最大的兼容性。同时，也可以减少因数据库更换而导致的代码修改。</li>
+</ul>
+<ol>
+<li><strong>合理设置数据库参数</strong></li>
+</ol>
+<ul>
+<li>根据硬件和工作负载调整数据库参数，如缓冲区大小、连接数等。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Button</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/">http://example.com/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">纽扣</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><div class="post_share"><div class="social-share" data-image="/img/f1jpg.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/mybatis%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%87%BAsql/"><img class="prev-cover" src="/img/f1jpg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">mybatis插件的使用</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/16/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/jsr303/"><img class="next-cover" src="/img/f1jpg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">jsr303</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/10/10/亚信实习/第一月/day08/sql杂记/" title="sql常用"><img class="cover" src="/img/f1jpg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-10-10</div><div class="title">sql常用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Button</div><div class="author-info__description">纽扣的博客,欢迎您</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/ButtonKing" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1741316082@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">这是一个个人学习笔记存放项目</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/17/mybatisPlus/MybatisPlus/" title="mybatisPlus"><img src="/img/f1jpg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mybatisPlus"/></a><div class="content"><a class="title" href="/2023/12/17/mybatisPlus/MybatisPlus/" title="mybatisPlus">mybatisPlus</a><time datetime="2023-12-17T02:51:00.000Z" title="发表于 2023-12-17 10:51:00">2023-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/01/docker/Docker%20%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%EF%BC%88CentOS%EF%BC%89/" title="docker基础"><img src="/img/f1jpg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker基础"/></a><div class="content"><a class="title" href="/2023/12/01/docker/Docker%20%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%EF%BC%88CentOS%EF%BC%89/" title="docker基础">docker基础</a><time datetime="2023-12-01T03:30:00.000Z" title="发表于 2023-12-01 11:30:00">2023-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" title="缓存击穿"><img src="/img/f1jpg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="缓存击穿"/></a><div class="content"><a class="title" href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/" title="缓存击穿">缓存击穿</a><time datetime="2023-11-21T08:52:00.000Z" title="发表于 2023-11-21 16:52:00">2023-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" title="缓存雪崩"><img src="/img/f1jpg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="缓存雪崩"/></a><div class="content"><a class="title" href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" title="缓存雪崩">缓存雪崩</a><time datetime="2023-11-21T03:51:00.000Z" title="发表于 2023-11-21 11:51:00">2023-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%85%A8%E5%B1%80ID%E7%94%9F%E6%88%90%E5%99%A8/" title="全局ID生成器"><img src="/img/f1jpg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="全局ID生成器"/></a><div class="content"><a class="title" href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%85%A8%E5%B1%80ID%E7%94%9F%E6%88%90%E5%99%A8/" title="全局ID生成器">全局ID生成器</a><time datetime="2023-11-21T02:51:00.000Z" title="发表于 2023-11-21 10:51:00">2023-11-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/f1jpg.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Button</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="true" data-text="B,U,T,T,O,N" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

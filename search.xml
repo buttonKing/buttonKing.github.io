@@ -54,31 +54,6 @@
     
     
     <entry>
-      <title>docker基础</title>
-      <link href="/2023/12/01/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/"/>
-      <url>/2023/12/01/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/</url>
-      
-        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><p><strong>SQL 调优笔记</strong></p><p><strong>一、概述</strong></p><p>SQL 调优是提高数据库性能的关键。通过对 SQL 语句的优化，可以大大提升数据库的响应速度，减少资源消耗，从而提升整体的应用性能。</p><p><strong>二、SQL 调优技巧</strong></p><ol><li><strong>使用索引</strong><ul><li>为经常查询的列和 WHERE 子句中的条件列建立索引。</li><li>避免全表扫描，尽量使用索引。</li></ul></li><li>**避免使用 SELECT ***<ul><li>只选择需要的列，避免选择不必要的数据。</li></ul></li><li><strong>使用连接（JOIN）代替子查询</strong><ul><li>当可能的时候，使用连接来代替子查询，以提高效率。</li></ul></li><li><strong>优化存储引擎</strong><ul><li>根据需求选择合适的存储引擎，如 InnoDB 或 MyISAM。</li></ul></li><li><strong>合理设计数据库结构</strong><ul><li>规范化：减少数据冗余。</li><li>反规范化：提高查询性能，但会增加数据冗余。</li></ul></li><li><strong>使用 LIMIT</strong><ul><li>当只需要部分结果时，使用 LIMIT 来限制返回的行数。</li></ul></li><li><strong>避免在列上进行计算</strong><ul><li>这会导致函数在每一行上都执行一次，可能导致全表扫描。</li></ul></li><li><strong>使用合适的数据类型</strong><ul><li>为列选择合适的数据类型可以减少存储需求并提高查询性能。</li></ul></li><li><strong>定期进行数据库维护</strong></li></ol><ul><li>如优化表（<code>OPTIMIZE TABLE</code>），修复表（<code>REPAIR TABLE</code>）等。</li></ul><ol><li><strong>监控和分析慢查询日志</strong></li></ol><ul><li>找出需要优化的慢查询，并对其进行优化。</li></ul><ol><li><strong>考虑查询缓存</strong></li></ol><ul><li>如果数据库支持，开启查询缓存可以提高重复查询的性能。</li></ul><ol><li><strong>使用 EXPLAIN 分析查询计划</strong></li></ol><ul><li>通过 <code>EXPLAIN</code> 可以查看查询的执行计划，从而找出潜在的优化点。</li></ul><ol><li><strong>避免在 WHERE 子句中使用函数或运算</strong></li></ol><ul><li>这会导致函数在每一行上都执行一次，可能导致全表扫描。</li></ul><ol><li><strong>使用预编译语句（Prepared Statements）</strong></li></ol><ul><li>预编译语句可以减少解析和优化时间，提高性能。</li></ul><ol><li><strong>优化存储引擎和表结构</strong></li></ol><ul><li>根据应用需求和数据特点选择合适的存储引擎和表结构。例如，InnoDB 支持事务和行级锁定，而 MyISAM 则更适合于只读操作。</li></ul><ol><li><strong>避免使用非标准的 SQL 功能</strong></li></ol><ul><li>使用标准 SQL 可以确保最大的兼容性。同时，也可以减少因数据库更换而导致的代码修改。</li></ul><ol><li><strong>合理设置数据库参数</strong></li></ol><ul><li>根据硬件和工作负载调整数据库参数，如缓冲区大小、连接数等。</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> docker </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 容器 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>缓存击穿</title>
       <link href="/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/"/>
       <url>/2023/11/21/redis%E7%AC%94%E8%AE%B0/%E4%B8%AA%E4%BA%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF/</url>
@@ -271,6 +246,31 @@
         <tags>
             
             <tag> 框架知识 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>sql调优</title>
+      <link href="/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/"/>
+      <url>/2023/11/17/%E7%9F%A5%E8%AF%86%E7%A2%8E%E7%89%87/SQL%20%E8%B0%83%E4%BC%98%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><p><strong>SQL 调优笔记</strong></p><p><strong>一、概述</strong></p><p>SQL 调优是提高数据库性能的关键。通过对 SQL 语句的优化，可以大大提升数据库的响应速度，减少资源消耗，从而提升整体的应用性能。</p><p><strong>二、SQL 调优技巧</strong></p><ol><li><strong>使用索引</strong><ul><li>为经常查询的列和 WHERE 子句中的条件列建立索引。</li><li>避免全表扫描，尽量使用索引。</li></ul></li><li>**避免使用 SELECT ***<ul><li>只选择需要的列，避免选择不必要的数据。</li></ul></li><li><strong>使用连接（JOIN）代替子查询</strong><ul><li>当可能的时候，使用连接来代替子查询，以提高效率。</li></ul></li><li><strong>优化存储引擎</strong><ul><li>根据需求选择合适的存储引擎，如 InnoDB 或 MyISAM。</li></ul></li><li><strong>合理设计数据库结构</strong><ul><li>规范化：减少数据冗余。</li><li>反规范化：提高查询性能，但会增加数据冗余。</li></ul></li><li><strong>使用 LIMIT</strong><ul><li>当只需要部分结果时，使用 LIMIT 来限制返回的行数。</li></ul></li><li><strong>避免在列上进行计算</strong><ul><li>这会导致函数在每一行上都执行一次，可能导致全表扫描。</li></ul></li><li><strong>使用合适的数据类型</strong><ul><li>为列选择合适的数据类型可以减少存储需求并提高查询性能。</li></ul></li><li><strong>定期进行数据库维护</strong></li></ol><ul><li>如优化表（<code>OPTIMIZE TABLE</code>），修复表（<code>REPAIR TABLE</code>）等。</li></ul><ol><li><strong>监控和分析慢查询日志</strong></li></ol><ul><li>找出需要优化的慢查询，并对其进行优化。</li></ul><ol><li><strong>考虑查询缓存</strong></li></ol><ul><li>如果数据库支持，开启查询缓存可以提高重复查询的性能。</li></ul><ol><li><strong>使用 EXPLAIN 分析查询计划</strong></li></ol><ul><li>通过 <code>EXPLAIN</code> 可以查看查询的执行计划，从而找出潜在的优化点。</li></ul><ol><li><strong>避免在 WHERE 子句中使用函数或运算</strong></li></ol><ul><li>这会导致函数在每一行上都执行一次，可能导致全表扫描。</li></ul><ol><li><strong>使用预编译语句（Prepared Statements）</strong></li></ol><ul><li>预编译语句可以减少解析和优化时间，提高性能。</li></ul><ol><li><strong>优化存储引擎和表结构</strong></li></ol><ul><li>根据应用需求和数据特点选择合适的存储引擎和表结构。例如，InnoDB 支持事务和行级锁定，而 MyISAM 则更适合于只读操作。</li></ul><ol><li><strong>避免使用非标准的 SQL 功能</strong></li></ol><ul><li>使用标准 SQL 可以确保最大的兼容性。同时，也可以减少因数据库更换而导致的代码修改。</li></ul><ol><li><strong>合理设置数据库参数</strong></li></ol><ul><li>根据硬件和工作负载调整数据库参数，如缓冲区大小、连接数等。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 知识碎片 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
             
         </tags>
       
